@@ -18,15 +18,15 @@ const std::vector<Point> lague_points = {
   Point(vec2(670.7106781188f, 200.0f), false)
 };
 const std::vector<Link> lague_links = {
-  Link(0, 1, lague_points[0], lague_points[1]),
-  Link(1, 2, lague_points[1], lague_points[2]),
-  Link(2, 3, lague_points[2], lague_points[3]),
-  Link(3, 4, lague_points[3], lague_points[4]),
-  Link(4, 5, lague_points[4], lague_points[5]),
-  Link(4, 6, lague_points[4], lague_points[6]),
-  Link(5, 7, lague_points[5], lague_points[7]),
-  Link(6, 7, lague_points[6], lague_points[7]),
-  Link(5, 6, lague_points[5], lague_points[6])
+  Link(0, 1, lague_points),
+  Link(1, 2, lague_points),
+  Link(2, 3, lague_points),
+  Link(3, 4, lague_points),
+  Link(4, 5, lague_points),
+  Link(4, 6, lague_points),
+  Link(5, 7, lague_points),
+  Link(6, 7, lague_points),
+  Link(5, 6, lague_points)
 };
 
 const std::vector<Point> up_points = {
@@ -37,35 +37,92 @@ const std::vector<Point> up_points = {
   Point(vec2(400.0f, 100.0f), false)
 };
 const std::vector<Link> up_links = {
-  Link(0, 1, up_points[0], up_points[1]),
-  Link(1, 2, up_points[1], up_points[2]),
-  Link(2, 3, up_points[2], up_points[3]),
-  Link(3, 4, up_points[3], up_points[4])
+  Link(0, 1, up_points),
+  Link(1, 2, up_points),
+  Link(2, 3, up_points),
+  Link(3, 4, up_points)
 };
 
 const std::vector<Point> v_points = {
   Point(vec2(400.0f, 300.0f), true),
 
+  // Right
   Point(vec2(425.0f, 250.0f), false),
   Point(vec2(450.0f, 200.0f), false),
   Point(vec2(475.0f, 150.0f), false),
   Point(vec2(500.0f, 100.0f), false),
 
+  // Left
   Point(vec2(375.0f, 250.0f), false),
   Point(vec2(350.0f, 200.0f), false),
   Point(vec2(325.0f, 150.0f), false),
   Point(vec2(300.0f, 100.0f), false)
 };
 const std::vector<Link> v_links = {
-  Link(0, 1, v_points[0], v_points[1]),
-  Link(1, 2, v_points[1], v_points[2]),
-  Link(2, 3, v_points[2], v_points[3]),
-  Link(3, 4, v_points[3], v_points[4]),
+  // Right
+  Link(0, 1, v_points),
+  Link(1, 2, v_points),
+  Link(2, 3, v_points),
+  Link(3, 4, v_points),
 
-  Link(0, 5, v_points[0], v_points[5]),
-  Link(5, 6, v_points[5], v_points[6]),
-  Link(6, 7, v_points[6], v_points[7]),
-  Link(7, 8, v_points[7], v_points[8])
+  // Left
+  Link(0, 5, v_points),
+  Link(5, 6, v_points),
+  Link(6, 7, v_points),
+  Link(7, 8, v_points)
+};
+
+const std::vector<Point> x_points = {
+  Point(vec2(400.0f, 300.0f), true),
+
+  // Top left
+  Point(vec2(350.0f, 250.0f), false),
+  Point(vec2(300.0f, 200.0f), false),
+  Point(vec2(250.0f, 150.0f), false),
+  Point(vec2(200.0f, 100.0f), false),
+
+  // Bottom left
+  Point(vec2(350.0f, 350.0f), false),
+  Point(vec2(300.0f, 400.0f), false),
+  Point(vec2(250.0f, 450.0f), false),
+  Point(vec2(200.0f, 500.0f), false),
+
+  // Bottom right
+  Point(vec2(450.0f, 350.0f), false),
+  Point(vec2(500.0f, 400.0f), false),
+  Point(vec2(550.0f, 450.0f), false),
+  Point(vec2(600.0f, 500.0f), false),
+  
+  // Top right
+  Point(vec2(450.0f, 250.0f), false),
+  Point(vec2(500.0f, 200.0f), false),
+  Point(vec2(550.0f, 150.0f), false),
+  Point(vec2(600.0f, 100.0f), false)
+};
+const std::vector<Link> x_links = {
+  // Top left
+  Link(0, 1, x_points),
+  Link(1, 2, x_points),
+  Link(2, 3, x_points),
+  Link(3, 4, x_points),
+
+  // Bottom left
+  Link(0, 5, x_points),
+  Link(5, 6, x_points),
+  Link(6, 7, x_points),
+  Link(7, 8, x_points),
+
+  // Bottom right
+  Link(0, 9, x_points),
+  Link(9, 10, x_points),
+  Link(10, 11, x_points),
+  Link(11, 12, x_points),
+
+  // Top right
+  Link(0, 13, x_points),
+  Link(13, 14, x_points),
+  Link(14, 15, x_points),
+  Link(15, 16, x_points)
 };
 // clang-format on
 

@@ -14,10 +14,10 @@ constexpr int font_size = 20;
 
 size_t orig_index = 0;
 const std::vector<std::vector<Point>> orig_points = {lague_points, up_points,
-                                                     v_points};
+                                                     v_points, x_points};
 const std::vector<std::vector<Link>> orig_links = {lague_links, up_links,
-                                                   v_links};
-const std::vector<std::string> orig_names = {"Sebastian Lague", "Up", "V"};
+                                                   v_links, x_links};
+const std::vector<std::string> orig_names = {"Sebastian Lague", "Up", "V", "X"};
 
 std::vector<Point> points;
 std::vector<Link> links;

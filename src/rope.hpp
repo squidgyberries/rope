@@ -3,6 +3,8 @@
 
 #include "rl.hpp"
 
+#include <vector>
+
 inline constexpr rl::Vector2 vec2(float x, float y) { return {x, y}; }
 
 struct Point {
@@ -23,8 +25,11 @@ struct Link {
 
   inline constexpr Link(size_t ia, size_t ib, float length)
       : ia(ia), ib(ib), length(length) {}
-  inline constexpr Link(size_t ia, size_t ib, Point a, Point b)
+  inline constexpr Link(size_t ia, size_t ib, const Point &a, const Point &b)
       : ia(ia), ib(ib), length(rl::Vector2Distance(a.pos, b.pos)) {}
+  inline constexpr Link(size_t ia, size_t ib, const std::vector<Point> &points)
+      : ia(ia), ib(ib),
+        length(rl::Vector2Distance(points[ia].pos, points[ib].pos)) {}
 };
 
 #endif // ROPE_ROPE_HPP
