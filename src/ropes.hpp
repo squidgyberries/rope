@@ -124,6 +124,59 @@ const std::vector<Link> x_links = {
   Link(14, 15, x_points),
   Link(15, 16, x_points)
 };
+
+const std::vector<Point> x_slack_points = {
+  Point(vec2(400.0f, 300.0f), false),
+
+  // Top left
+  Point(vec2(350.0f, 250.0f), false),
+  Point(vec2(300.0f, 200.0f), false),
+  Point(vec2(250.0f, 150.0f), false),
+  Point(vec2(200.0f, 100.0f), true),
+
+  // Bottom left
+  Point(vec2(350.0f, 350.0f), false),
+  Point(vec2(300.0f, 400.0f), false),
+  Point(vec2(250.0f, 450.0f), false),
+  Point(vec2(200.0f, 500.0f), true),
+
+  // Bottom right
+  Point(vec2(450.0f, 350.0f), false),
+  Point(vec2(500.0f, 400.0f), false),
+  Point(vec2(550.0f, 450.0f), false),
+  Point(vec2(600.0f, 500.0f), true),
+  
+  // Top right
+  Point(vec2(450.0f, 250.0f), false),
+  Point(vec2(500.0f, 200.0f), false),
+  Point(vec2(550.0f, 150.0f), false),
+  Point(vec2(600.0f, 100.0f), true)
+};
+const std::vector<Link> x_slack_links = {
+  // Top left
+  Link(0, 1, 75.0f),
+  Link(1, 2, 75.0f),
+  Link(2, 3, 75.0f),
+  Link(3, 4, 75.0f),
+
+  // Bottom left
+  Link(0, 5, 75.0f),
+  Link(5, 6, 75.0f),
+  Link(6, 7, 75.0f),
+  Link(7, 8, 75.0f),
+
+  // Bottom right
+  Link(0, 9, 75.0f),
+  Link(9, 10, 75.0f),
+  Link(10, 11, 75.0f),
+  Link(11, 12, 75.0f),
+
+  // Top right
+  Link(0, 13, 75.0f),
+  Link(13, 14, 75.0f),
+  Link(14, 15, 75.0f),
+  Link(15, 16, 75.0f)
+};
 // clang-format on
 
 #endif // ROPE_ROPES_HPP
