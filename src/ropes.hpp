@@ -8,14 +8,14 @@
 // clang-format off
 // From Sebastian Lague's AI video game idea video on YouTube
 const std::vector<Point> lague_points = {
-  Point(vec2(400.0f, 200.0f), true),
-  Point(vec2(450.0f, 200.0f), false),
-  Point(vec2(500.0f, 200.0f), false),
-  Point(vec2(550.0f, 200.0f), false),
-  Point(vec2(600.0f, 200.0f), false),
-  Point(vec2(635.3553390594f, 164.6446609406f), false),
-  Point(vec2(635.3553390594f, 235.3553390594f), false),
-  Point(vec2(670.7106781188f, 200.0f), false)
+  Point(vec2(400.0f, 200.0f), Point::State::Locked),
+  Point(vec2(450.0f, 200.0f), Point::State::Free),
+  Point(vec2(500.0f, 200.0f), Point::State::Free),
+  Point(vec2(550.0f, 200.0f), Point::State::Free),
+  Point(vec2(600.0f, 200.0f), Point::State::Free),
+  Point(vec2(635.3553390594f, 164.6446609406f), Point::State::Free),
+  Point(vec2(635.3553390594f, 235.3553390594f), Point::State::Free),
+  Point(vec2(670.7106781188f, 200.0f), Point::State::Free)
 };
 const std::vector<Link> lague_links = {
   Link(0, 1, lague_points),
@@ -30,11 +30,11 @@ const std::vector<Link> lague_links = {
 };
 
 const std::vector<Point> up_points = {
-  Point(vec2(400.0f, 300.0f), true),
-  Point(vec2(400.0f, 250.0f), false),
-  Point(vec2(400.0f, 200.0f), false),
-  Point(vec2(400.0f, 150.0f), false),
-  Point(vec2(400.0f, 100.0f), false)
+  Point(vec2(400.0f, 300.0f), Point::State::Locked),
+  Point(vec2(400.0f, 250.0f), Point::State::Free),
+  Point(vec2(400.0f, 200.0f), Point::State::Free),
+  Point(vec2(400.0f, 150.0f), Point::State::Free),
+  Point(vec2(400.0f, 100.0f), Point::State::Free)
 };
 const std::vector<Link> up_links = {
   Link(0, 1, up_points),
@@ -44,19 +44,19 @@ const std::vector<Link> up_links = {
 };
 
 const std::vector<Point> v_points = {
-  Point(vec2(400.0f, 300.0f), true),
+  Point(vec2(400.0f, 300.0f), Point::State::Locked),
 
   // Right
-  Point(vec2(425.0f, 250.0f), false),
-  Point(vec2(450.0f, 200.0f), false),
-  Point(vec2(475.0f, 150.0f), false),
-  Point(vec2(500.0f, 100.0f), false),
+  Point(vec2(425.0f, 250.0f), Point::State::Free),
+  Point(vec2(450.0f, 200.0f), Point::State::Free),
+  Point(vec2(475.0f, 150.0f), Point::State::Free),
+  Point(vec2(500.0f, 100.0f), Point::State::Free),
 
   // Left
-  Point(vec2(375.0f, 250.0f), false),
-  Point(vec2(350.0f, 200.0f), false),
-  Point(vec2(325.0f, 150.0f), false),
-  Point(vec2(300.0f, 100.0f), false)
+  Point(vec2(375.0f, 250.0f), Point::State::Free),
+  Point(vec2(350.0f, 200.0f), Point::State::Free),
+  Point(vec2(325.0f, 150.0f), Point::State::Free),
+  Point(vec2(300.0f, 100.0f), Point::State::Free)
 };
 const std::vector<Link> v_links = {
   // Right
@@ -73,31 +73,31 @@ const std::vector<Link> v_links = {
 };
 
 const std::vector<Point> x_points = {
-  Point(vec2(400.0f, 300.0f), true),
+  Point(vec2(400.0f, 300.0f), Point::State::Locked),
 
   // Top left
-  Point(vec2(350.0f, 250.0f), false),
-  Point(vec2(300.0f, 200.0f), false),
-  Point(vec2(250.0f, 150.0f), false),
-  Point(vec2(200.0f, 100.0f), false),
+  Point(vec2(350.0f, 250.0f), Point::State::Free),
+  Point(vec2(300.0f, 200.0f), Point::State::Free),
+  Point(vec2(250.0f, 150.0f), Point::State::Free),
+  Point(vec2(200.0f, 100.0f), Point::State::Free),
 
   // Bottom left
-  Point(vec2(350.0f, 350.0f), false),
-  Point(vec2(300.0f, 400.0f), false),
-  Point(vec2(250.0f, 450.0f), false),
-  Point(vec2(200.0f, 500.0f), false),
+  Point(vec2(350.0f, 350.0f), Point::State::Free),
+  Point(vec2(300.0f, 400.0f), Point::State::Free),
+  Point(vec2(250.0f, 450.0f), Point::State::Free),
+  Point(vec2(200.0f, 500.0f), Point::State::Free),
 
   // Bottom right
-  Point(vec2(450.0f, 350.0f), false),
-  Point(vec2(500.0f, 400.0f), false),
-  Point(vec2(550.0f, 450.0f), false),
-  Point(vec2(600.0f, 500.0f), false),
+  Point(vec2(450.0f, 350.0f), Point::State::Free),
+  Point(vec2(500.0f, 400.0f), Point::State::Free),
+  Point(vec2(550.0f, 450.0f), Point::State::Free),
+  Point(vec2(600.0f, 500.0f), Point::State::Free),
   
   // Top right
-  Point(vec2(450.0f, 250.0f), false),
-  Point(vec2(500.0f, 200.0f), false),
-  Point(vec2(550.0f, 150.0f), false),
-  Point(vec2(600.0f, 100.0f), false)
+  Point(vec2(450.0f, 250.0f), Point::State::Free),
+  Point(vec2(500.0f, 200.0f), Point::State::Free),
+  Point(vec2(550.0f, 150.0f), Point::State::Free),
+  Point(vec2(600.0f, 100.0f), Point::State::Free)
 };
 const std::vector<Link> x_links = {
   // Top left
@@ -126,31 +126,31 @@ const std::vector<Link> x_links = {
 };
 
 const std::vector<Point> x_slack_points = {
-  Point(vec2(400.0f, 300.0f), false),
+  Point(vec2(400.0f, 300.0f), Point::State::Free),
 
   // Top left
-  Point(vec2(350.0f, 250.0f), false),
-  Point(vec2(300.0f, 200.0f), false),
-  Point(vec2(250.0f, 150.0f), false),
-  Point(vec2(200.0f, 100.0f), true),
+  Point(vec2(350.0f, 250.0f), Point::State::Free),
+  Point(vec2(300.0f, 200.0f), Point::State::Free),
+  Point(vec2(250.0f, 150.0f), Point::State::Free),
+  Point(vec2(200.0f, 100.0f), Point::State::Locked),
 
   // Bottom left
-  Point(vec2(350.0f, 350.0f), false),
-  Point(vec2(300.0f, 400.0f), false),
-  Point(vec2(250.0f, 450.0f), false),
-  Point(vec2(200.0f, 500.0f), true),
+  Point(vec2(350.0f, 350.0f), Point::State::Free),
+  Point(vec2(300.0f, 400.0f), Point::State::Free),
+  Point(vec2(250.0f, 450.0f), Point::State::Free),
+  Point(vec2(200.0f, 500.0f), Point::State::Locked),
 
   // Bottom right
-  Point(vec2(450.0f, 350.0f), false),
-  Point(vec2(500.0f, 400.0f), false),
-  Point(vec2(550.0f, 450.0f), false),
-  Point(vec2(600.0f, 500.0f), true),
+  Point(vec2(450.0f, 350.0f), Point::State::Free),
+  Point(vec2(500.0f, 400.0f), Point::State::Free),
+  Point(vec2(550.0f, 450.0f), Point::State::Free),
+  Point(vec2(600.0f, 500.0f), Point::State::Locked),
   
   // Top right
-  Point(vec2(450.0f, 250.0f), false),
-  Point(vec2(500.0f, 200.0f), false),
-  Point(vec2(550.0f, 150.0f), false),
-  Point(vec2(600.0f, 100.0f), true)
+  Point(vec2(450.0f, 250.0f), Point::State::Free),
+  Point(vec2(500.0f, 200.0f), Point::State::Free),
+  Point(vec2(550.0f, 150.0f), Point::State::Free),
+  Point(vec2(600.0f, 100.0f), Point::State::Locked)
 };
 const std::vector<Link> x_slack_links = {
   // Top left
@@ -176,6 +176,14 @@ const std::vector<Link> x_slack_links = {
   Link(13, 14, 75.0f),
   Link(14, 15, 75.0f),
   Link(15, 16, 75.0f)
+};
+
+const std::vector<Rope> ropes = {
+  Rope("Sebastion Lague", lague_points, lague_links),
+  Rope("Up", up_points, up_links),
+  Rope("V", v_points, v_links),
+  Rope("X", x_points, x_links),
+  Rope("X slack", x_slack_points, x_slack_links)
 };
 // clang-format on
 
