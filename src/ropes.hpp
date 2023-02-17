@@ -179,7 +179,7 @@ const std::vector<Link> x_slack_links = {
 };
 
 const std::vector<Rope> ropes = {
-  Rope("Sebastion Lague", lague_points, lague_links),
+  Rope("Sebastian Lague", lague_points, lague_links),
   Rope("Up", up_points, up_links),
   Rope("V", v_points, v_links),
   Rope("X", x_points, x_links),
