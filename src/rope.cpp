@@ -15,21 +15,17 @@ constexpr float point_radius = 18.0f;
 
 constexpr int font_size = 20;
 
-size_t orig_index = 0;
+size_t rope_index = 0;
 
-std::vector<Point> points = {};
-std::vector<Link> links = {};
+const std::vector<Rope> ropes = getRopes();
+Rope rope = ropes[rope_index];
 
-std::mutex points_links_mutex;
+std::mutex rope_mutex;
 
 std::atomic<bool> should_close = false;
 std::atomic<float> physics_delta_time = 0.0f;
 std::atomic<bool> paused = true;
-
-Point *grabbed_point = nullptr;
-Vector2 grabbed_offset = vec2(0.0f, 0.0f);
-
-constexpr int num_iterations = 5;
+std::atomic<Vector2> mouse_pos = vec2(0.0f, 0.0f);
 
 void simulate() {
   float delta_time = 0.0f;
@@ -37,51 +33,9 @@ void simulate() {
 
   while (!should_close) {
     if (!paused) {
-      points_links_mutex.lock();
-
-      for (Point &point : points) {
-        if (point.state != Point::State::Free)
-          continue;
-        Vector2 orig_pos = point.pos;
-        Vector2 diff = Vector2Subtract(point.pos, point.last_pos);
-        point.pos = Vector2Add(point.pos, diff);
-        Vector2 gravity = vec2(0.0f, 1.0f * delta_time * 0.06f);
-        point.pos = Vector2Add(point.pos, gravity);
-        point.last_pos = orig_pos;
-      }
-
-      for (int i = 0; i < num_iterations; i++) {
-        for (Link &link : links) {
-          float actual_length =
-              Vector2Distance(points[link.ia].pos, points[link.ib].pos);
-          if (link.length == actual_length)
-            continue;
-          float scale = link.length / actual_length;
-          if (points[link.ia].state != Point::State::Free) {
-            Vector2 offset =
-                Vector2Subtract(points[link.ib].pos, points[link.ia].pos);
-            Vector2 new_offset = Vector2Scale(offset, scale);
-            points[link.ib].pos = Vector2Add(points[link.ia].pos, new_offset);
-          } else if (points[link.ib].state != Point::State::Free) {
-            Vector2 offset =
-                Vector2Subtract(points[link.ia].pos, points[link.ib].pos);
-            Vector2 new_offset = Vector2Scale(offset, scale);
-            points[link.ia].pos = Vector2Add(points[link.ib].pos, new_offset);
-          } else if (points[link.ia].state == Point::State::Free &&
-                     points[link.ib].state == Point::State::Free) {
-            Vector2 sum = Vector2Add(points[link.ia].pos, points[link.ib].pos);
-            Vector2 center = Vector2Multiply(sum, vec2(0.5f, 0.5f));
-            Vector2 offset_a = Vector2Subtract(points[link.ia].pos, center);
-            Vector2 offset_b = Vector2Subtract(points[link.ib].pos, center);
-            Vector2 new_offset_a = Vector2Scale(offset_a, scale);
-            Vector2 new_offset_b = Vector2Scale(offset_b, scale);
-            points[link.ia].pos = Vector2Add(center, new_offset_a);
-            points[link.ib].pos = Vector2Add(center, new_offset_b);
-          }
-        }
-      }
-
-      points_links_mutex.unlock();
+      rope_mutex.lock();
+      rope.update(rope, delta_time, mouse_pos);
+      rope_mutex.unlock();
     }
 
     auto dur = std::chrono::high_resolution_clock::now() - last_frame;
@@ -98,9 +52,6 @@ void simulate() {
 }
 
 int main() {
-  points = ropes[orig_index].points;
-  links = ropes[orig_index].links;
-
   SetConfigFlags(FLAG_MSAA_4X_HINT);
   SetConfigFlags(FLAG_VSYNC_HINT);
   InitWindow(window_width, window_height, "rope");
@@ -110,66 +61,66 @@ int main() {
   std::thread simulate_thread(simulate);
 
   while (!should_close) {
-    if (IsKeyPressed(KEY_SPACE))
+    mouse_pos = GetMousePosition();
+
+    if (IsKeyPressed(KEY_SPACE)) {
       paused = !paused;
+    }
     if (IsKeyPressed(KEY_R)) {
-      points_links_mutex.lock();
-      points = ropes[orig_index].points;
-      links = ropes[orig_index].links;
-      points_links_mutex.unlock();
+      rope_mutex.lock();
+      rope = ropes[rope_index];
+      rope_mutex.unlock();
     }
     if (IsKeyPressed(KEY_RIGHT)) {
-      if (orig_index + 1 < ropes.size()) {
-        ++orig_index;
+      if (rope_index + 1 < ropes.size()) {
+        ++rope_index;
         paused = true;
-        points_links_mutex.lock();
-        points = ropes[orig_index].points;
-        links = ropes[orig_index].links;
-        points_links_mutex.unlock();
+        rope_mutex.lock();
+        rope = ropes[rope_index];
+        rope_mutex.unlock();
       }
     }
     if (IsKeyPressed(KEY_LEFT)) {
-      if (orig_index > 0) {
-        --orig_index;
+      if (rope_index > 0) {
+        --rope_index;
         paused = true;
-        points_links_mutex.lock();
-        points = ropes[orig_index].points;
-        links = ropes[orig_index].links;
-        points_links_mutex.unlock();
+        rope_mutex.lock();
+        rope = ropes[rope_index];
+        rope_mutex.unlock();
       }
     }
 
-    points_links_mutex.lock();
+    rope_mutex.lock();
 
-    for (Point &point : points) {
+    for (Point &point : rope.points) {
       if (point.state == Point::State::Locked &&
           IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-          Vector2DistanceSqr(point.pos, GetMousePosition()) <
+          Vector2DistanceSqr(point.pos, mouse_pos) <
               point_radius * point_radius) {
-        grabbed_point = &point;
-        grabbed_offset = Vector2Subtract(point.pos, GetMousePosition());
+        rope.grabbed_point = &point;
+        rope.grabbed_offset = Vector2Subtract(point.pos, mouse_pos);
       }
     }
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-      grabbed_point = nullptr;
+      rope.grabbed_point = nullptr;
     }
 
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && grabbed_point) {
-      grabbed_point->pos = Vector2Add(GetMousePosition(), grabbed_offset);
-    }
+    rope.grabbed = IsMouseButtonDown(MOUSE_BUTTON_LEFT) && rope.grabbed_point;
 
-    points_links_mutex.unlock();
+    rope_mutex.unlock();
 
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
 
-    points_links_mutex.unlock();
+    rope_mutex.unlock();
 
-    for (const Link &link : links)
-      DrawLineEx(points[link.ia].pos, points[link.ib].pos, link_width, GRAY);
+    for (const Link &link : rope.links) {
+      DrawLineEx(rope.points[link.ia].pos, rope.points[link.ib].pos, link_width,
+                 GRAY);
+    }
 
-    for (const Point &point : points) {
+    for (const Point &point : rope.points) {
       Color color = BLACK;
       switch (point.state) {
       case Point::State::Free:
@@ -185,7 +136,7 @@ int main() {
       DrawCircleV(point.pos, point_radius, color);
     }
 
-    points_links_mutex.unlock();
+    rope_mutex.unlock();
 
     DrawText(
         fmt::format("Frame time: {:.2f} ms", GetFrameTime() * 1000.0f).c_str(),
@@ -202,13 +153,14 @@ int main() {
                  .c_str(),
              10, 80, font_size, BLACK);
 
-    if (paused)
+    if (paused) {
       DrawText("paused", 10, window_height - 30, font_size, BLACK);
-    else
+    } else {
       DrawText("playing", 10, window_height - 30, font_size, BLACK);
+    }
 
-    std::string name_str = fmt::format("{} ({}/{})", ropes[orig_index].name,
-                                       orig_index + 1, ropes.size());
+    std::string name_str = fmt::format("{} ({}/{})", ropes[rope_index].name,
+                                       rope_index + 1, ropes.size());
     int name_length = MeasureText(name_str.c_str(), font_size);
     DrawText(name_str.c_str(), window_width - name_length - 10,
              window_height - 30, font_size, BLACK);
