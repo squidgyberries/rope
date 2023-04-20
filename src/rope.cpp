@@ -29,7 +29,7 @@ std::atomic<Vector2> mouse_pos = vec2(0.0f, 0.0f);
 
 void simulate() {
   float delta_time = 0.0f;
-  auto last_frame = std::chrono::high_resolution_clock::now();
+  auto last_frame = std::chrono::steady_clock::now();
 
   while (!should_close) {
     if (!paused) {
@@ -38,11 +38,11 @@ void simulate() {
       rope_mutex.unlock();
     }
 
-    auto dur = std::chrono::high_resolution_clock::now() - last_frame;
+    auto dur = std::chrono::steady_clock::now() - last_frame;
     std::this_thread::sleep_for(
         std::chrono::duration<float, std::milli>(1000.0f / 60.0f) - dur);
 
-    auto current_frame = std::chrono::high_resolution_clock::now();
+    auto current_frame = std::chrono::steady_clock::now();
     delta_time =
         std::chrono::duration<float, std::milli>(current_frame - last_frame)
             .count();

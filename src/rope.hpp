@@ -3,6 +3,7 @@
 
 #include "rl.hpp"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -14,11 +15,14 @@ struct Point {
   Vector2 pos;
   Vector2 last_pos;
   State state;
+  uint64_t id;
 
-  constexpr Point(Vector2 pos, Vector2 last_pos, State state)
-      : pos(pos), last_pos(last_pos), state(state) {}
-  constexpr Point(Vector2 pos, State state)
-      : pos(pos), last_pos(pos), state(state) {}
+  constexpr Point(Vector2 pos, Vector2 last_pos, State state = State::Free,
+                  uint64_t id = 0)
+      : pos(pos), last_pos(last_pos), state(state), id(id) {}
+
+  constexpr Point(Vector2 pos, State state = State::Free, uint64_t id = 0)
+      : pos(pos), last_pos(pos), state(state), id(id) {}
 };
 
 struct Link {
@@ -26,11 +30,13 @@ struct Link {
   size_t ib;
   float length;
 
-  inline constexpr Link(size_t ia, size_t ib, float length)
+  constexpr Link(size_t ia, size_t ib, float length)
       : ia(ia), ib(ib), length(length) {}
-  inline constexpr Link(size_t ia, size_t ib, const Point &a, const Point &b)
+
+  constexpr Link(size_t ia, size_t ib, const Point &a, const Point &b)
       : ia(ia), ib(ib), length(Vector2Distance(a.pos, b.pos)) {}
-  inline constexpr Link(size_t ia, size_t ib, const std::vector<Point> &points)
+
+  constexpr Link(size_t ia, size_t ib, const std::vector<Point> &points)
       : ia(ia), ib(ib),
         length(Vector2Distance(points[ia].pos, points[ib].pos)) {}
 };
@@ -44,8 +50,7 @@ struct Rope {
   bool grabbed;
   void (*update)(Rope &, float, Vector2);
 
-  inline Rope(std::string name, std::vector<Point> points,
-              std::vector<Link> links)
+  Rope(std::string name, std::vector<Point> points, std::vector<Link> links)
       : name(name), points(points), links(links), grabbed_point(nullptr),
         grabbed_offset(vec2(0.0f, 0.0f)), grabbed(false),
         update(update = [](Rope &self, float delta_time, Vector2 mouse_pos) {
@@ -101,8 +106,9 @@ struct Rope {
             }
           }
         }) {}
-  inline Rope(std::string name, std::vector<Point> points,
-              std::vector<Link> links, void (*update)(Rope &, float, Vector2))
+
+  Rope(std::string name, std::vector<Point> points, std::vector<Link> links,
+       void (*update)(Rope &, float, Vector2))
       : name(name), points(points), links(links), grabbed_point(nullptr),
         grabbed_offset(vec2(0.0f, 0.0f)), grabbed(false), update(update) {}
 };

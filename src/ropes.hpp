@@ -8,13 +8,13 @@ inline std::vector<Rope> getRopes() {
   // From Sebastian Lague's AI video game idea video on YouTube
   const std::vector<Point> lague_points = {
     Point(vec2(400.0f, 200.0f), Point::State::Locked),
-    Point(vec2(450.0f, 200.0f), Point::State::Free),
-    Point(vec2(500.0f, 200.0f), Point::State::Free),
-    Point(vec2(550.0f, 200.0f), Point::State::Free),
-    Point(vec2(600.0f, 200.0f), Point::State::Free),
-    Point(vec2(635.3553390594f, 164.6446609406f), Point::State::Free),
-    Point(vec2(635.3553390594f, 235.3553390594f), Point::State::Free),
-    Point(vec2(670.7106781188f, 200.0f), Point::State::Free)
+    Point(vec2(450.0f, 200.0f)),
+    Point(vec2(500.0f, 200.0f)),
+    Point(vec2(550.0f, 200.0f)),
+    Point(vec2(600.0f, 200.0f)),
+    Point(vec2(635.3553390594f, 164.6446609406f)),
+    Point(vec2(635.3553390594f, 235.3553390594f)),
+    Point(vec2(670.7106781188f, 200.0f))
   };
   const std::vector<Link> lague_links = {
     Link(0, 1, lague_points),
@@ -30,10 +30,10 @@ inline std::vector<Rope> getRopes() {
 
   const std::vector<Point> up_points = {
     Point(vec2(400.0f, 300.0f), Point::State::Locked),
-    Point(vec2(400.0f, 250.0f), Point::State::Free),
-    Point(vec2(400.0f, 200.0f), Point::State::Free),
-    Point(vec2(400.0f, 150.0f), Point::State::Free),
-    Point(vec2(400.0f, 100.0f), Point::State::Free)
+    Point(vec2(400.0f, 250.0f)),
+    Point(vec2(400.0f, 200.0f)),
+    Point(vec2(400.0f, 150.0f)),
+    Point(vec2(400.0f, 100.0f))
   };
   const std::vector<Link> up_links = {
     Link(0, 1, up_points),
@@ -46,16 +46,16 @@ inline std::vector<Rope> getRopes() {
     Point(vec2(400.0f, 300.0f), Point::State::Locked),
 
     // Right
-    Point(vec2(425.0f, 250.0f), Point::State::Free),
-    Point(vec2(450.0f, 200.0f), Point::State::Free),
-    Point(vec2(475.0f, 150.0f), Point::State::Free),
-    Point(vec2(500.0f, 100.0f), Point::State::Free),
+    Point(vec2(425.0f, 250.0f)),
+    Point(vec2(450.0f, 200.0f)),
+    Point(vec2(475.0f, 150.0f)),
+    Point(vec2(500.0f, 100.0f)),
 
     // Left
-    Point(vec2(375.0f, 250.0f), Point::State::Free),
-    Point(vec2(350.0f, 200.0f), Point::State::Free),
-    Point(vec2(325.0f, 150.0f), Point::State::Free),
-    Point(vec2(300.0f, 100.0f), Point::State::Free)
+    Point(vec2(375.0f, 250.0f)),
+    Point(vec2(350.0f, 200.0f)),
+    Point(vec2(325.0f, 150.0f)),
+    Point(vec2(300.0f, 100.0f))
   };
   const std::vector<Link> v_links = {
     // Right
@@ -75,28 +75,28 @@ inline std::vector<Rope> getRopes() {
     Point(vec2(400.0f, 300.0f), Point::State::Locked),
 
     // Top left
-    Point(vec2(350.0f, 250.0f), Point::State::Free),
-    Point(vec2(300.0f, 200.0f), Point::State::Free),
-    Point(vec2(250.0f, 150.0f), Point::State::Free),
-    Point(vec2(200.0f, 100.0f), Point::State::Free),
+    Point(vec2(350.0f, 250.0f)),
+    Point(vec2(300.0f, 200.0f)),
+    Point(vec2(250.0f, 150.0f)),
+    Point(vec2(200.0f, 100.0f)),
 
     // Bottom left
-    Point(vec2(350.0f, 350.0f), Point::State::Free),
-    Point(vec2(300.0f, 400.0f), Point::State::Free),
-    Point(vec2(250.0f, 450.0f), Point::State::Free),
-    Point(vec2(200.0f, 500.0f), Point::State::Free),
+    Point(vec2(350.0f, 350.0f)),
+    Point(vec2(300.0f, 400.0f)),
+    Point(vec2(250.0f, 450.0f)),
+    Point(vec2(200.0f, 500.0f)),
 
     // Bottom right
-    Point(vec2(450.0f, 350.0f), Point::State::Free),
-    Point(vec2(500.0f, 400.0f), Point::State::Free),
-    Point(vec2(550.0f, 450.0f), Point::State::Free),
-    Point(vec2(600.0f, 500.0f), Point::State::Free),
+    Point(vec2(450.0f, 350.0f)),
+    Point(vec2(500.0f, 400.0f)),
+    Point(vec2(550.0f, 450.0f)),
+    Point(vec2(600.0f, 500.0f)),
 
     // Top right
-    Point(vec2(450.0f, 250.0f), Point::State::Free),
-    Point(vec2(500.0f, 200.0f), Point::State::Free),
-    Point(vec2(550.0f, 150.0f), Point::State::Free),
-    Point(vec2(600.0f, 100.0f), Point::State::Free)
+    Point(vec2(450.0f, 250.0f)),
+    Point(vec2(500.0f, 200.0f)),
+    Point(vec2(550.0f, 150.0f)),
+    Point(vec2(600.0f, 100.0f))
   };
   const std::vector<Link> x_links = {
     // Top left
@@ -125,30 +125,30 @@ inline std::vector<Rope> getRopes() {
   };
 
   const std::vector<Point> x_slack_points = {
-    Point(vec2(400.0f, 300.0f), Point::State::Free),
+    Point(vec2(400.0f, 300.0f)),
 
     // Top left
-    Point(vec2(350.0f, 250.0f), Point::State::Free),
-    Point(vec2(300.0f, 200.0f), Point::State::Free),
-    Point(vec2(250.0f, 150.0f), Point::State::Free),
+    Point(vec2(350.0f, 250.0f)),
+    Point(vec2(300.0f, 200.0f)),
+    Point(vec2(250.0f, 150.0f)),
     Point(vec2(200.0f, 100.0f), Point::State::Locked),
 
     // Bottom left
-    Point(vec2(350.0f, 350.0f), Point::State::Free),
-    Point(vec2(300.0f, 400.0f), Point::State::Free),
-    Point(vec2(250.0f, 450.0f), Point::State::Free),
+    Point(vec2(350.0f, 350.0f)),
+    Point(vec2(300.0f, 400.0f)),
+    Point(vec2(250.0f, 450.0f)),
     Point(vec2(200.0f, 500.0f), Point::State::Locked),
 
     // Bottom right
-    Point(vec2(450.0f, 350.0f), Point::State::Free),
-    Point(vec2(500.0f, 400.0f), Point::State::Free),
-    Point(vec2(550.0f, 450.0f), Point::State::Free),
+    Point(vec2(450.0f, 350.0f)),
+    Point(vec2(500.0f, 400.0f)),
+    Point(vec2(550.0f, 450.0f)),
     Point(vec2(600.0f, 500.0f), Point::State::Locked),
 
     // Top right
-    Point(vec2(450.0f, 250.0f), Point::State::Free),
-    Point(vec2(500.0f, 200.0f), Point::State::Free),
-    Point(vec2(550.0f, 150.0f), Point::State::Free),
+    Point(vec2(450.0f, 250.0f)),
+    Point(vec2(500.0f, 200.0f)),
+    Point(vec2(550.0f, 150.0f)),
     Point(vec2(600.0f, 100.0f), Point::State::Locked)
   };
   const std::vector<Link> x_slack_links = {
@@ -176,13 +176,96 @@ inline std::vector<Rope> getRopes() {
     Link(14, 15, 75.0f),
     Link(15, 16, 75.0f)
   };
+  const std::vector<Point> upside_down_v_points = {
+    Point(vec2(400.0f, 300.0f), Point::State::Locked),
+
+    // Right
+    Point(vec2(425.0f, 350.0f)),
+    Point(vec2(450.0f, 400.0f)),
+    Point(vec2(475.0f, 450.0f)),
+    Point(vec2(500.0f, 500.0f)),
+
+    // Left
+    Point(vec2(375.0f, 350.0f)),
+    Point(vec2(350.0f, 400.0f)),
+    Point(vec2(325.0f, 450.0f)),
+    Point(vec2(300.0f, 500.0f))
+  };
+  const std::vector<Link> upside_down_v_links = {
+    // Right
+    Link(0, 1, upside_down_v_points),
+    Link(1, 2, upside_down_v_points),
+    Link(2, 3, upside_down_v_points),
+    Link(3, 4, upside_down_v_points),
+
+    // Left
+    Link(0, 5, upside_down_v_points),
+    Link(5, 6, upside_down_v_points),
+    Link(6, 7, upside_down_v_points),
+    Link(7, 8, upside_down_v_points)
+  };
+  // clang-format on
+  void (*upside_down_v_update)(Rope &, float, Vector2) = [](Rope &self,
+                                                            float delta_time,
+                                                            Vector2 mouse_pos) {
+    for (Point &point : self.points) {
+      if (point.state != Point::State::Free)
+        continue;
+      Vector2 orig_pos = point.pos;
+      Vector2 diff = Vector2Subtract(point.pos, point.last_pos);
+      point.pos = Vector2Add(point.pos, diff);
+      Vector2 gravity = vec2(0.0f, -1.0f * delta_time * 0.06f);
+      point.pos = Vector2Add(point.pos, gravity);
+      point.last_pos = orig_pos;
+    }
+
+    if (self.grabbed) {
+      self.grabbed_point->pos = Vector2Add(mouse_pos, self.grabbed_offset);
+    }
+
+    for (int i = 0; i < 5; i++) {
+      for (Link &link : self.links) {
+        float actual_length =
+            Vector2Distance(self.points[link.ia].pos, self.points[link.ib].pos);
+        if (link.length == actual_length)
+          continue;
+        float scale = link.length / actual_length;
+        if (self.points[link.ia].state != Point::State::Free) {
+          Vector2 offset = Vector2Subtract(self.points[link.ib].pos,
+                                           self.points[link.ia].pos);
+          Vector2 new_offset = Vector2Scale(offset, scale);
+          self.points[link.ib].pos =
+              Vector2Add(self.points[link.ia].pos, new_offset);
+        } else if (self.points[link.ib].state != Point::State::Free) {
+          Vector2 offset = Vector2Subtract(self.points[link.ia].pos,
+                                           self.points[link.ib].pos);
+          Vector2 new_offset = Vector2Scale(offset, scale);
+          self.points[link.ia].pos =
+              Vector2Add(self.points[link.ib].pos, new_offset);
+        } else if (self.points[link.ia].state == Point::State::Free &&
+                   self.points[link.ib].state == Point::State::Free) {
+          Vector2 sum =
+              Vector2Add(self.points[link.ia].pos, self.points[link.ib].pos);
+          Vector2 center = Vector2Multiply(sum, vec2(0.5f, 0.5f));
+          Vector2 offset_a = Vector2Subtract(self.points[link.ia].pos, center);
+          Vector2 offset_b = Vector2Subtract(self.points[link.ib].pos, center);
+          Vector2 new_offset_a = Vector2Scale(offset_a, scale);
+          Vector2 new_offset_b = Vector2Scale(offset_b, scale);
+          self.points[link.ia].pos = Vector2Add(center, new_offset_a);
+          self.points[link.ib].pos = Vector2Add(center, new_offset_b);
+        }
+      }
+    }
+  };
+  // clang-format off
 
   return {
     Rope("Sebastian Lague", lague_points, lague_links),
     Rope("Up", up_points, up_links),
     Rope("V", v_points, v_links),
     Rope("X", x_points, x_links),
-    Rope("X slack", x_slack_points, x_slack_links)
+    Rope("X slack", x_slack_points, x_slack_links),
+    Rope("Upside down V", upside_down_v_points, upside_down_v_links, upside_down_v_update)
   };
   // clang-format on
 }
